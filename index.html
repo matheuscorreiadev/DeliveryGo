@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DeliveryGo Menu QR</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Navegacao principal">
+        <div class="brand">
+          <div class="brand-mark">DG</div>
+          <div>
+            <strong>DeliveryGo</strong>
+            <span>Painel do restaurante</span>
+          </div>
+        </div>
+
+        <nav class="nav-tabs" aria-label="Areas do sistema">
+          <button class="nav-button active" type="button" data-view="dashboard" title="Painel">
+            <span aria-hidden="true">[]</span>
+            <span>Painel</span>
+          </button>
+          <button class="nav-button" type="button" data-view="editor" title="Cardapio">
+            <span aria-hidden="true">ED</span>
+            <span>Cardapio</span>
+          </button>
+          <button class="nav-button" type="button" data-view="tables" title="Mesas e QR">
+            <span aria-hidden="true">QR</span>
+            <span>Mesas e QR</span>
+          </button>
+          <button class="nav-button" type="button" data-view="public" title="Visualizar menu">
+            <span aria-hidden="true">GO</span>
+            <span>Menu publico</span>
+          </button>
+        </nav>
+
+        <div class="plan-box">
+          <span>Status da conta</span>
+          <strong>Ativo</strong>
+          <p>Cardapio publicado, QRs funcionando e pedidos direcionados para o WhatsApp.</p>
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div>
+            <span class="eyebrow" id="restaurantEyebrow">Painel do restaurante</span>
+            <h1 id="dashboardHeading">Cardapio digital</h1>
+          </div>
+          <div class="status-pill">
+            <span class="pulse"></span>
+            Publicado agora
+          </div>
+        </header>
+
+        <section class="view active" id="dashboard" aria-labelledby="dashboard-title">
+          <div class="section-header">
+            <div>
+              <h2 id="dashboard-title">Visao geral</h2>
+              <p>Acompanhe acessos, mesas ativas e itens que precisam de atencao.</p>
+            </div>
+            <button class="primary-action" type="button" data-view-target="editor">Editar cardapio</button>
+          </div>
+
+          <div class="metric-grid">
+            <article class="metric">
+              <span>Mesas ativas</span>
+              <strong id="metricTables">0</strong>
+            </article>
+            <article class="metric">
+              <span>Itens publicados</span>
+              <strong id="metricItems">0</strong>
+            </article>
+            <article class="metric">
+              <span>Visitas hoje</span>
+              <strong id="metricVisits">0</strong>
+            </article>
+            <article class="metric">
+              <span>Itens pausados</span>
+              <strong id="metricPaused">0</strong>
+            </article>
+          </div>
+
+          <div class="dashboard-grid">
+            <section class="panel">
+              <div class="panel-title">
+                <h3>Restaurante</h3>
+              </div>
+              <form class="restaurant-form" id="restaurantForm">
+                <label>
+                  Nome
+                  <input id="restaurantName" name="name" autocomplete="organization" />
+                </label>
+                <label>
+                  Descricao
+                  <input id="restaurantDescription" name="description" />
+                </label>
+                <label>
+                  Cor da marca
+                  <input id="brandColor" name="brandColor" type="color" />
+                </label>
+                <button class="primary-action" type="submit">Salvar restaurante</button>
+              </form>
+            </section>
+
+            <div class="dashboard-side">
+              <section class="panel qr-panel">
+                <div class="panel-title">
+                  <h3>QR principal</h3>
+                  <span id="qrTableLabel">Mesa 01</span>
+                </div>
+                <img id="dashboardQr" alt="QR Code principal do cardapio" />
+                <div class="qr-actions">
+                  <button class="primary-action" type="button" id="openMainQr">Visualizar cardapio</button>
+                  <button class="ghost-action" type="button" data-view-target="tables">Ver todos os QRs</button>
+                </div>
+              </section>
+
+              <section class="panel">
+                <div class="panel-title">
+                  <h3>Status do cardapio</h3>
+                  <span id="systemStatus">Tudo certo</span>
+                </div>
+                <div class="status-list">
+                  <div>
+                    <strong id="availableStatus">0 itens disponiveis</strong>
+                    <span>Produtos que aparecem para o cliente agora.</span>
+                  </div>
+                  <div>
+                    <strong id="pausedStatus">0 itens pausados</strong>
+                    <span>Revise produtos em falta ou indisponiveis no dia.</span>
+                  </div>
+                  <div>
+                    <strong id="tableStatus">0 mesas publicadas</strong>
+                    <span>Mesas com link de QR pronto para uso.</span>
+                  </div>
+                  <div>
+                    <strong id="monthVisitsStatus">0 visitas no mes</strong>
+                    <span>Total de aberturas do cardapio pelos QRs.</span>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </section>
+
+        <section class="view" id="editor" aria-labelledby="editor-title">
+          <div class="section-header">
+            <div>
+              <h2 id="editor-title">Editor do cardapio</h2>
+              <p>Itens salvos aqui aparecem imediatamente na pagina publica.</p>
+            </div>
+          </div>
+
+          <div class="editor-layout">
+            <form class="panel item-form" id="itemForm">
+              <input type="hidden" id="itemId" />
+              <label>
+                Nome do item
+                <input id="itemName" required placeholder="Ex: Burger da casa" />
+              </label>
+              <label>
+                Categoria
+                <select id="itemCategory">
+                  <option>Lanches</option>
+                  <option>Pratos</option>
+                  <option>Bebidas</option>
+                  <option>Sobremesas</option>
+                  <option>Promocoes</option>
+                </select>
+              </label>
+              <label>
+                Preco
+                <input id="itemPrice" required type="number" min="0" step="0.01" placeholder="29.90" />
+              </label>
+              <label>
+                Descricao
+                <textarea id="itemDescription" rows="4" placeholder="Ingredientes, acompanhamentos e observacoes."></textarea>
+              </label>
+              <label class="toggle-row">
+                <input id="itemAvailable" type="checkbox" checked />
+                Disponivel no cardapio
+              </label>
+              <div class="form-actions">
+                <button class="primary-action" type="submit">Salvar item</button>
+                <button class="ghost-action" type="button" id="clearItem">Limpar</button>
+              </div>
+            </form>
+
+            <section class="panel">
+              <div class="panel-title">
+                <h3>Itens cadastrados</h3>
+                <select id="categoryFilter" aria-label="Filtrar categoria">
+                  <option value="all">Todas</option>
+                </select>
+              </div>
+              <div class="item-list" id="adminItems"></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="view" id="tables" aria-labelledby="tables-title">
+          <div class="section-header">
+            <div>
+              <h2 id="tables-title">Mesas e QR Codes</h2>
+              <p>Cada QR abre o mesmo cardapio com o numero da mesa na URL.</p>
+            </div>
+            <button class="primary-action" type="button" id="addTable">Adicionar mesa</button>
+          </div>
+          <div class="table-grid" id="tableGrid"></div>
+        </section>
+
+        <section class="view" id="public" aria-labelledby="public-title">
+          <div class="phone-preview">
+            <div class="phone-frame">
+              <div class="menu-hero" id="publicHero">
+                <span id="publicTable">Mesa 01</span>
+                <h2 id="publicName">Restaurante</h2>
+                <p id="publicDescription">Cardapio digital</p>
+              </div>
+              <div class="category-chips" id="publicCategories"></div>
+              <div class="public-items" id="publicItems"></div>
+              <div class="order-bar">
+                <span id="orderSummary">0 itens</span>
+                <button type="button" id="whatsappButton">Pedir no WhatsApp</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <template id="adminItemTemplate">
+      <article class="admin-item">
+        <div>
+          <strong></strong>
+          <span></span>
+          <p></p>
+        </div>
+        <div class="item-actions">
+          <button type="button" data-action="edit" title="Editar">ED</button>
+          <button type="button" data-action="toggle" title="Ativar ou pausar">ON</button>
+          <button type="button" data-action="delete" title="Excluir">X</button>
+        </div>
+      </article>
+    </template>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

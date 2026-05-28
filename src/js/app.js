@@ -2,10 +2,10 @@ const STORAGE_KEY = "deliverygo-menu-saas";
 
 const starterData = {
   restaurant: {
-    name: "Bistro Avenida",
+    name: "Bistrô Avenida",
     description: "Burgers, pratos executivos e bebidas geladas sem fila no balcao.",
     brandColor: "#0f8b6f",
-    whatsapp: "5511999999999",
+    whatsapp: "5571999999999",
   },
   analytics: {
     visitsToday: 38,

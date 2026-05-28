@@ -1,0 +1,21 @@
+{
+  "name": "deliverygo",
+  "version": "1.0.0",
+  "description": "MVP de SaaS para cardapio digital por QR Code. Restaurantes editam dados, itens, precos e disponibilidade no painel. O cliente abre o QR da mesa no navegador, sem baixar app.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node src/js/server.cjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matheuscorreiadev/DeliveryGo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matheuscorreiadev/DeliveryGo/issues"
+  },
+  "homepage": "https://github.com/matheuscorreiadev/DeliveryGo#readme"
+}
